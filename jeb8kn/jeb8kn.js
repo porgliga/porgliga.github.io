@@ -29,7 +29,7 @@ const sucessTexts = {
 async function onClick(el, dataType, dataParse = (a)=>a){
     const value = dataParse(prompt(prompts[dataType].text));
     if(!value) return null;
-	if (!prompts[dataType].validate(value)) return null;
+	if (!prompts[dataType].validate(value)) return alert("Nesprávný formát.");
     const obj = { id: el.closest("div[data-matchid]").dataset.matchid };
     obj[dataType] = value;
 
