@@ -31,7 +31,7 @@ async function main(){
 	const promises = [];
 	data.forEach(d => {
 		console.log(d)
-		promises.push(admin.firestore().collection(FILENAME.split(".")[0]).doc(d[keyField]).set(d));
+		promises.push(admin.firestore().collection(FILENAME.split(".")[0]).doc(String(d[keyField])).set(d));
 	})
 
 	await Promise.all(promises);
