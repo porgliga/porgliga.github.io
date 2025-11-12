@@ -176,6 +176,10 @@ async function loadMatches(includeDateless = false, options) {
         const next = data.filter(m => !m.score && makeDate(m.date, m.time)?.getTime()||0 > Date.now()).sort((a,b) => makeDate(a.date, a.time).getTime() - makeDate(b.date, b.time).getTime())[0]
         if (returnNext){
             data = [next];
+			if (!next) {
+				document.getElementById("countdown").style.display = "none"
+			}
+			return;
         }
         if (filter) {
             data = data.filter(filter);
