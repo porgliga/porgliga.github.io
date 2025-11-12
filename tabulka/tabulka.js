@@ -46,12 +46,14 @@ async function loadShooters() {
             if (event.length < 1) continue;
             if (!event.includes("⚽")) continue;
             const splitted = event.split("(").map(e => e.replaceAll("⚽", "").trim())
+			let goalInc = 1;
 			if (new RegExp(/^\d\d?x /).test(splitted[0])) {
+				goalInc = parseInt(splitted[0].split("x")[0].trim());
 				splitted[0] = splitted[0].split("x").slice(1).map(e => e.trim()).join("x")
 			}
 
             shooters[splitted[0]] ??= {name: splitted[0], goals: 0, assists: 0/*, team: match.events.left.includes(event) ? match.team_left : match.team_right*/}
-            shooters[splitted[0]].goals++;
+            shooters[splitted[0]].goals += goalInc;
 
             if (splitted.length > 1) {
                 const assistName = splitted[1].slice(0,-1);
