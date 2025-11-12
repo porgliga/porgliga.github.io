@@ -203,7 +203,7 @@ async function loadMatches(includeDateless = false, options) {
                 .replaceAll("{IS_EMPTY_EVENTS}", (!l.events || (!l.events.left && !l.events.right)) ? "empty" : "")
                 .replaceAll("{ID}", l.id)
 
-            if (l.id === next.id) {
+            if (l.id === next?.id) {
                 returnValue = returnValue
                     .replaceAll("<!--{FIRST}-->", "<h2 id=\"nextmatch\" style=\"color: #fff; text-align: center;margin-bottom: 30px;\">Příští zápas</h2>");
             }

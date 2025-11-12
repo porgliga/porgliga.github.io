@@ -2,10 +2,22 @@ const pass = prompt("Heslo")
 if (pass==="") throw Error();
 
 const prompts = {
-    "date": "Nové datum ve formátu DD.MM.YYYY (např. 28.9.2024)",
-    "time": "Nový čas ve 24-hodinovém formátu (např: 14:25)",
-    "score": "Nové skóre rozdělené dvojtečkou (např: 8:2)",
-    "event": "Nová událost, tak jak by se měla zobrazit (např. Z! Novotný)\nZkratky: Z! => 🟨, C! => 🟥, G! => ⚽"
+    "date": {
+		text: "Nové datum ve formátu DD.MM.YYYY (např. 28.9.2024)",
+		validate: (t) => new RegExp(/^([0-2]?[0-9]|3[0-1])\.(0?[1-9]|1[0-2])\.20[0-2][0-6]$/).test(t)
+	},
+    "time": {
+		text: "Nový čas ve 24-hodinovém formátu (např: 14:25)",
+		validate: (t) => new RegExp(/^([0-1][0-9]|2[0-3]):([0-5][0-9])$/).test(t)
+	},
+    "score": {
+		text: "Nové skóre rozdělené dvojtečkou (např: 8:2)",
+		validate: (t) => new RegExp(/^\d+:\d+$/).test(t)
+	},
+    "event": {
+		text: "Nová událost, tak jak by se měla zobrazit (např. Z! Novotný)\nZkratky: Z! => 🟨, C! => 🟥, G! => ⚽",
+		validate: (t) => true
+	}
 }
 
 const sucessTexts = {
@@ -15,8 +27,9 @@ const sucessTexts = {
     "event": "Přidáno"
 }
 async function onClick(el, dataType, dataParse = (a)=>a){
-    const value = dataParse(prompt(prompts[dataType]));
+    const value = dataParse(prompt(prompts[dataType].text));
     if(!value) return null;
+	if (!prompts[dataType].validate(value)) return null;
     const obj = { id: el.closest("div[data-matchid]").dataset.matchid };
     obj[dataType] = value;
 
