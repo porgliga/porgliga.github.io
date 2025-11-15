@@ -178,8 +178,8 @@ async function loadMatches(includeDateless = false, options) {
             data = [next];
 			if (!next) {
 				document.getElementById("countdown").style.display = "none"
+				return;
 			}
-			return;
         }
         if (filter) {
             data = data.filter(filter);
